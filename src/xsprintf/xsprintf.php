@@ -1,5 +1,7 @@
 <?php
 
+setlocale(LC_CTYPE, "en_US.UTF-8");
+
 /**
  * Parse a `sprintf()`-style format string in an extensible way.
  *
