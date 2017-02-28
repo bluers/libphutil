@@ -124,7 +124,7 @@ final class PhutilLDAPAuthAdapter extends PhutilAuthAdapter {
       $ds = $authResult["DS"][0];
       $this->email = $ds["email"];
       $this->webUserId = $ds["WEB_USER_ID"];
-      $this->webUserName = $ds["WEB_USER_ID"];
+      $this->webUserName = $ds["USER_NAME"];
       $this->verifyStatus = $ds["VERIFY_STATUS"];
     }
   }
