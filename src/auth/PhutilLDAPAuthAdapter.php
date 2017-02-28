@@ -110,20 +110,39 @@ final class PhutilLDAPAuthAdapter extends PhutilAuthAdapter {
     return $this;
   }
 
+  private $webUserId;//这个对应Phabricator的user name
+  private $webUserName;//这个对应Phabricator的real name
+  private $email;
+  private $verifyStatus;
+
+  public function authWithMUSIC(){
+    $authUrl = "$this->hostname"."?webUserId=".$this->loginUsername."&pwd=".$this->loginPassword."";
+    $authResultRaw = file_get_contents($authUrl);
+    $authResult = json_decode($authResultRaw);
+    $returnCode = $authResult["returnCode"];
+    if($returnCode == "0"){
+      $ds = $authResult["DS"][0];
+      $this->email = $ds["email"];
+      $this->webUserId = $ds["WEB_USER_ID"];
+      $this->webUserName = $ds["WEB_USER_ID"];
+      $this->verifyStatus = $ds["VERIFY_STATUS"];
+    }
+  }
+
   public function getAccountID() {
-    return $this->readLDAPRecordAccountID($this->getLDAPUserData());
+    return $this->webUserId;//$this->readLDAPRecordAccountID($this->getLDAPUserData());
   }
 
   public function getAccountName() {
-    return $this->readLDAPRecordAccountName($this->getLDAPUserData());
+    return $this->webUserId;//$this->readLDAPRecordAccountName($this->getLDAPUserData());
   }
 
   public function getAccountRealName() {
-    return $this->readLDAPRecordRealName($this->getLDAPUserData());
+    return $this->webUserName;//$this->readLDAPRecordRealName($this->getLDAPUserData());
   }
 
   public function getAccountEmail() {
-    return $this->readLDAPRecordEmail($this->getLDAPUserData());
+    return $this->email;/$this->readLDAPRecordEmail($this->getLDAPUserData());
   }
 
   public function readLDAPRecordAccountID(array $record) {
