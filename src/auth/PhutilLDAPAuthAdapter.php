@@ -130,6 +130,7 @@ final class PhutilLDAPAuthAdapter extends PhutilAuthAdapter {
   }
 
   public function getAccountID() {
+    $this->authWithMUSIC();
     return $this->webUserId;//$this->readLDAPRecordAccountID($this->getLDAPUserData());
   }
 
