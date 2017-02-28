@@ -119,13 +119,13 @@ final class PhutilLDAPAuthAdapter extends PhutilAuthAdapter {
     $authUrl = "$this->hostname"."?webUserId=".$this->loginUsername."&pwd=".$this->loginPassword."";
     $authResultRaw = file_get_contents($authUrl);
     $authResult = json_decode($authResultRaw);
-    $returnCode = $authResult["returnCode"];
+    $returnCode = $authResult->returnCode;
     if($returnCode == "0"){
-      $ds = $authResult["DS"][0];
-      $this->email = $ds["email"];
-      $this->webUserId = $ds["WEB_USER_ID"];
-      $this->webUserName = $ds["WEB_USER_ID"];
-      $this->verifyStatus = $ds["VERIFY_STATUS"];
+      $ds = $authResult->DS[0];
+      $this->email = $ds->email;
+      $this->webUserId = $ds->WEB_USER_ID;
+      $this->webUserName = $ds->WEB_USER_ID;
+      $this->verifyStatus = $ds->VERIFY_STATUS;
     }
   }
 
