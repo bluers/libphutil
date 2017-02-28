@@ -142,7 +142,7 @@ final class PhutilLDAPAuthAdapter extends PhutilAuthAdapter {
   }
 
   public function getAccountEmail() {
-    return $this->email;/$this->readLDAPRecordEmail($this->getLDAPUserData());
+    return $this->email;//$this->readLDAPRecordEmail($this->getLDAPUserData());
   }
 
   public function readLDAPRecordAccountID(array $record) {
